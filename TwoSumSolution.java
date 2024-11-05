@@ -1,40 +1,46 @@
-import java.util.HashMap;
-
-class TwoSumSolution 
+public class TwoSumSolution 
 {
-    public int[] twoSum(int[] nums, int target) 
-    {
-        HashMap<Integer, Integer> map = new HashMap<>();
-        
-        for(int i = 0; i < nums.length; i++) 
-        {
-            int complement = target - nums[i];
-            
-            if(map.containsKey(complement)) 
-            {
-                return new int[] { map.get(complement), i };
+    public int[] twoSum(int[] numbers, int target) 
+	{
+        int left = 0;
+        int right = numbers.length - 1;
+
+        while (left < right) 
+		{
+            int sum = numbers[left] + numbers[right];
+
+            if (sum == target) 
+			{
+                return new int[] { left + 1, right + 1 };  // 1-based indices
+            } 
+			else if (sum < target) 
+			{
+                left++;
             }
-            
-            map.put(nums[i], i);
+			else 
+			{
+                right--;
+            }
         }
-        
-        throw new IllegalArgumentException("No two sum solution");
+        return new int[] {};  // This line should never be reached due to problem constraints
     }
 
     public static void main(String[] args) 
-    {
+	{
         TwoSumSolution solution = new TwoSumSolution();
-        int[] nums = {2, 7, 11, 15};
+        int[] numbers = {2, 7, 11, 15};
         int target = 9;
+
+        int[] result = solution.twoSum(numbers, target);
         
-        try 
-        {
-            int[] result = solution.twoSum(nums, target);
-            System.out.println("Indices: [" + result[0] + ", " + result[1] + "]");
+        // Output the result
+        if (result.length == 2) 
+		{
+            System.out.println("Indices: " + result[0] + ", " + result[1]);
         } 
-        catch (IllegalArgumentException e) 
-        {
-            System.out.println(e.getMessage());
+		else 
+		{
+            System.out.println("No solution found.");
         }
     }
 }
